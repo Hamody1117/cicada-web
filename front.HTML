@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow · Login</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="front.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left side - Branding -->
+        <div class="brand-section">
+            <div class="brand-content">
+                <h1 class="logo">TaskFlow</h1>
+                <p class="tagline">Simple task tracking for software teams</p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="check-icon">✓</span>
+                        <span>Track project progress</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check-icon">✓</span>
+                        <span>Assign tasks to team members</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="check-icon">✓</span>
+                        <span>Real-time updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side - Login Form -->
+        <div class="form-section">
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <h2>Welcome back</h2>
+                    <p>Please enter your details to continue</p>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <form id="loginForm" class="login-form">
+                    <!-- حقل اسم المستخدم (جديد) -->
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="remember" id="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">
+                        Sign in
+                    </button>
+
+                    <div class="demo-note">
+                        <p>Demo: أي بيانات تدخل</p>
+                    </div>
+                </form>
+
+                <div class="register-prompt">
+                    <p>Don't have an account? <a href="#">Create free account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ربط ملف web.js مباشرة للتحكم في تسجيل الدخول -->
+    <script src="web.js"></script>
+</body>
+</html>
