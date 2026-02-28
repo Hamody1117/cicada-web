@@ -13,6 +13,13 @@
     <link rel="stylesheet" href="front.css">
 </head>
 <body>
+    <!-- Theme Toggle (optional but nice) -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-sun"></i>
+        <span>Light</span>
+        <i class="fas fa-moon"></i>
+    </button>
+
     <div class="container">
         <!-- Left side - Branding -->
         <div class="brand-section">
@@ -45,54 +52,501 @@
                 </div>
 
                 <!-- LOGIN FORM -->
-                <form id="loginForm" class="login-form">
-                    <!-- حقل اسم المستخدم (جديد) -->
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <div class="input-wrapper">
-                            <input type="text" id="username" name="username" placeholder="Enter your username" required>
-                        </div>
-                    </div>
-
+                <form id="loginForm" class="login-form" novalidate>
+                    <!-- Email field -->
                     <div class="form-group">
                         <label for="email">Email address</label>
                         <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
                             <input type="email" id="email" name="email" placeholder="Enter your email" required>
                         </div>
+                        <div class="error-message" id="emailError"></div>
                     </div>
 
+                    <!-- Password field with toggle -->
                     <div class="form-group">
                         <label for="password">Password</label>
                         <div class="input-wrapper">
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="6">
+                            <button type="button" class="password-toggle" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
                         </div>
+                        <div class="error-message" id="passwordError"></div>
                     </div>
 
+                    <!-- Form Options -->
                     <div class="form-options">
                         <label class="checkbox-container">
                             <input type="checkbox" name="remember" id="remember">
+                            <span class="checkmark"></span>
                             <span>Remember me</span>
                         </label>
-                        <a href="#" class="forgot-link">Forgot password?</a>
+                        <a href="#" class="forgot-link" id="forgotPassword">Forgot password?</a>
                     </div>
 
+                    <!-- Submit button -->
                     <button type="submit" class="login-btn" id="loginBtn">
-                        Sign in
+                        <span>Sign in</span>
+                        <i class="fas fa-arrow-right"></i>
                     </button>
 
+                    <!-- Demo Note -->
                     <div class="demo-note">
-                        <p>Demo: أي بيانات تدخل</p>
+                        <p><i class="fas fa-info-circle"></i> Demo: Use any email and password</p>
                     </div>
                 </form>
 
+                <!-- Register Prompt -->
                 <div class="register-prompt">
-                    <p>Don't have an account? <a href="#">Create free account</a></p>
+                    <p>Don't have an account? <a href="#" id="showRegisterModal">Create free account</a></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ربط ملف web.js مباشرة للتحكم في تسجيل الدخول -->
+    <!-- REGISTRATION MODAL -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create your account</h3>
+                <button class="close-btn" id="closeRegisterModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="registerForm" novalidate>
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label for="regFullName">Full name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="regFullName" name="fullName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="error-message" id="regNameError"></div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="regEmail">Email address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="regEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="error-message" id="regEmailError"></div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="regPassword" name="password" placeholder="Create a password" required minlength="6">
+                        <button type="button" class="password-toggle" id="toggleRegPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <small class="hint">Must be at least 6 characters</small>
+                    <div class="error-message" id="regPasswordError"></div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="regConfirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+                        <button type="button" class="password-toggle" id="toggleRegConfirmPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="regConfirmError"></div>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="form-group terms-checkbox">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                    </label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="register-btn" id="registerBtn">
+                    <span>Create account</span>
+                    <i class="fas fa-user-plus"></i>
+                </button>
+            </form>
+
+            <!-- Alternative Login -->
+            <div class="modal-footer">
+                <p>Already have an account? <a href="#" id="switchToLogin">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORGOT PASSWORD MODAL (Optional) -->
+    <div class="modal small-modal" id="forgotModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reset Password</h3>
+                <button class="close-btn" id="closeForgotModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="forgotForm">
+                <div class="form-group">
+                    <label for="forgotEmail">Email address</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="forgotEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <p class="hint">We'll send you a link to reset your password</p>
+                <button type="submit" class="btn-primary">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Success Modal (for registration success) -->
+    <div class="modal small-modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Success!</h3>
+                <button class="close-btn" id="closeSuccessModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <i class="fas fa-check-circle success-icon"></i>
+                <p id="successMessage">Account created successfully!</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-primary" id="gotoLoginBtn">Go to Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script src="web.js"></script>
+    <script>
+        // Additional frontend-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    document.body.classList.toggle('dark-theme');
+                    const icon = this.querySelector('i');
+                    if (document.body.classList.contains('dark-theme')) {
+                        icon.className = 'fas fa-moon';
+                        this.querySelector('span').textContent = 'Dark';
+                    } else {
+                        icon.className = 'fas fa-sun';
+                        this.querySelector('span').textContent = 'Light';
+                    }
+                });
+            }
+
+            // Password Toggle Functionality
+            function setupPasswordToggle(toggleId, inputId) {
+                const toggle = document.getElementById(toggleId);
+                const input = document.getElementById(inputId);
+                
+                if (toggle && input) {
+                    toggle.addEventListener('click', function() {
+                        const type = input.type === 'password' ? 'text' : 'password';
+                        input.type = type;
+                        this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                    });
+                }
+            }
+
+            // Setup all password toggles
+            setupPasswordToggle('togglePassword', 'password');
+            setupPasswordToggle('toggleRegPassword', 'regPassword');
+            setupPasswordToggle('toggleRegConfirmPassword', 'regConfirmPassword');
+
+            // Form Validation
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            // Login Form Validation
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const email = document.getElementById('email');
+                    const password = document.getElementById('password');
+                    const emailError = document.getElementById('emailError');
+                    const passwordError = document.getElementById('passwordError');
+                    
+                    let isValid = true;
+                    
+                    // Reset errors
+                    emailError.textContent = '';
+                    passwordError.textContent = '';
+                    email.classList.remove('error');
+                    password.classList.remove('error');
+                    
+                    // Validate email
+                    if (!email.value.trim()) {
+                        emailError.textContent = 'Email is required';
+                        email.classList.add('error');
+                        isValid = false;
+                    } else if (!validateEmail(email.value)) {
+                        emailError.textContent = 'Please enter a valid email';
+                        email.classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate password
+                    if (!password.value) {
+                        passwordError.textContent = 'Password is required';
+                        password.classList.add('error');
+                        isValid = false;
+                    } else if (password.value.length < 6) {
+                        passwordError.textContent = 'Password must be at least 6 characters';
+                        password.classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    if (isValid) {
+                        // Simulate login
+                        const loginBtn = document.getElementById('loginBtn');
+                        loginBtn.classList.add('loading');
+                        loginBtn.disabled = true;
+                        
+                        setTimeout(function() {
+                            localStorage.setItem('isLoggedIn', 'true');
+                            localStorage.setItem('userName', email.value.split('@')[0]);
+                            localStorage.setItem('userEmail', email.value);
+                            
+                            const profileData = {
+                                fullName: email.value.split('@')[0],
+                                jobTitle: 'Product Owner',
+                                email: email.value
+                            };
+                            localStorage.setItem('profileData', JSON.stringify(profileData));
+                            
+                            window.location.href = 'web.html';
+                        }, 1500);
+                    }
+                });
+            }
+
+            // Registration Modal Logic
+            const registerModal = document.getElementById('registerModal');
+            const overlay = document.getElementById('overlay');
+            const showRegisterBtn = document.getElementById('showRegisterModal');
+            const closeRegisterBtn = document.getElementById('closeRegisterModal');
+            const switchToLogin = document.getElementById('switchToLogin');
+
+            if (showRegisterBtn && registerModal && overlay) {
+                showRegisterBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    registerModal.classList.add('active');
+                    overlay.classList.add('active');
+                });
+            }
+
+            function closeRegisterModal() {
+                registerModal.classList.remove('active');
+                overlay.classList.remove('active');
+                document.getElementById('registerForm').reset();
+            }
+
+            if (closeRegisterBtn) {
+                closeRegisterBtn.addEventListener('click', closeRegisterModal);
+            }
+
+            if (switchToLogin) {
+                switchToLogin.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeRegisterModal();
+                });
+            }
+
+            // Forgot Password Modal
+            const forgotModal = document.getElementById('forgotModal');
+            const forgotLink = document.getElementById('forgotPassword');
+            const closeForgotBtn = document.getElementById('closeForgotModal');
+
+            if (forgotLink && forgotModal) {
+                forgotLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    forgotModal.classList.add('active');
+                    overlay.classList.add('active');
+                });
+            }
+
+            if (closeForgotBtn && forgotModal) {
+                closeForgotBtn.addEventListener('click', function() {
+                    forgotModal.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+
+            // Close modals when clicking overlay
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                    overlay.classList.remove('active');
+                });
+            }
+
+            // Registration Form Submission
+            const registerForm = document.getElementById('registerForm');
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const fullName = document.getElementById('regFullName');
+                    const email = document.getElementById('regEmail');
+                    const password = document.getElementById('regPassword');
+                    const confirmPassword = document.getElementById('regConfirmPassword');
+                    const agreeTerms = document.getElementById('agreeTerms');
+                    
+                    // Reset errors
+                    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+                    document.querySelectorAll('.input-wrapper input').forEach(el => el.classList.remove('error'));
+                    
+                    let isValid = true;
+                    
+                    // Validate name
+                    if (!fullName.value.trim()) {
+                        document.getElementById('regNameError').textContent = 'Full name is required';
+                        fullName.classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate email
+                    if (!email.value.trim()) {
+                        document.getElementById('regEmailError').textContent = 'Email is required';
+                        email.classList.add('error');
+                        isValid = false;
+                    } else if (!validateEmail(email.value)) {
+                        document.getElementById('regEmailError').textContent = 'Please enter a valid email';
+                        email.classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate password
+                    if (!password.value) {
+                        document.getElementById('regPasswordError').textContent = 'Password is required';
+                        password.classList.add('error');
+                        isValid = false;
+                    } else if (password.value.length < 6) {
+                        document.getElementById('regPasswordError').textContent = 'Password must be at least 6 characters';
+                        password.classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate confirm password
+                    if (!confirmPassword.value) {
+                        document.getElementById('regConfirmError').textContent = 'Please confirm your password';
+                        confirmPassword.classList.add('error');
+                        isValid = false;
+                    } else if (password.value !== confirmPassword.value) {
+                        document.getElementById('regConfirmError').textContent = 'Passwords do not match';
+                        confirmPassword.classList.add('error');
+                        isValid = false;
+                    }
+                    
+                    // Validate terms
+                    if (!agreeTerms.checked) {
+                        alert('Please agree to the Terms of Service and Privacy Policy');
+                        isValid = false;
+                    }
+                    
+                    if (isValid) {
+                        // Show loading
+                        const registerBtn = document.getElementById('registerBtn');
+                        registerBtn.classList.add('loading');
+                        registerBtn.disabled = true;
+                        
+                        // Simulate registration
+                        setTimeout(function() {
+                            registerBtn.classList.remove('loading');
+                            registerBtn.disabled = false;
+                            
+                            // Close register modal
+                            closeRegisterModal();
+                            
+                            // Show success modal
+                            const successModal = document.getElementById('successModal');
+                            successModal.classList.add('active');
+                            overlay.classList.add('active');
+                        }, 1500);
+                    }
+                });
+            }
+
+            // Success Modal
+            const successModal = document.getElementById('successModal');
+            const closeSuccessBtn = document.getElementById('closeSuccessModal');
+            const gotoLoginBtn = document.getElementById('gotoLoginBtn');
+
+            function closeSuccessModal() {
+                successModal.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+
+            if (closeSuccessBtn) {
+                closeSuccessBtn.addEventListener('click', closeSuccessModal);
+            }
+
+            if (gotoLoginBtn) {
+                gotoLoginBtn.addEventListener('click', function() {
+                    closeSuccessModal();
+                    // Focus on email field
+                    document.getElementById('email').focus();
+                });
+            }
+
+            // Forgot Password Form
+            const forgotForm = document.getElementById('forgotForm');
+            if (forgotForm) {
+                forgotForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('forgotEmail').value;
+                    
+                    if (email && validateEmail(email)) {
+                        alert(`Password reset link sent to ${email}`);
+                        forgotModal.classList.remove('active');
+                        overlay.classList.remove('active');
+                        forgotForm.reset();
+                    } else {
+                        alert('Please enter a valid email address');
+                    }
+                });
+            }
+
+            // Add floating labels effect (optional)
+            const inputs = document.querySelectorAll('.input-wrapper input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('focused');
+                });
+                
+                input.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.parentElement.classList.remove('focused');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
