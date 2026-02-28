@@ -1,3 +1,5 @@
+/* front.css - Complete version with all new features */
+
 * {
     margin: 0;
     padding: 0;
@@ -115,6 +117,62 @@ body.dark-theme .input-wrapper input {
 
 body.dark-theme .input-wrapper input::placeholder {
     color: #64748b;
+}
+
+body.dark-theme .input-icon {
+    color: #64748b;
+}
+
+body.dark-theme .checkbox-container span:last-child {
+    color: #cbd5e1;
+}
+
+body.dark-theme .demo-note {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-theme .demo-note p {
+    color: #94a3b8;
+}
+
+body.dark-theme .forgot-link {
+    color: #60a5fa;
+}
+
+body.dark-theme .register-prompt p {
+    color: #94a3b8;
+}
+
+body.dark-theme .register-prompt a {
+    color: #60a5fa;
+}
+
+body.dark-theme .terms p {
+    color: #64748b;
+}
+
+body.dark-theme .terms a {
+    color: #94a3b8;
+}
+
+body.dark-theme .terms a:hover {
+    color: #60a5fa;
+}
+
+body.dark-theme .theme-toggle {
+    background: #1e293b;
+    color: #f1f5f9;
+    border: 1px solid #334155;
+}
+
+body.dark-theme .checkmark {
+    background-color: #0f172a;
+    border-color: #334155;
+}
+
+body.dark-theme .checkbox-container:hover input ~ .checkmark {
+    border-color: #60a5fa;
 }
 
 .container {
@@ -313,6 +371,7 @@ body.dark-theme .input-wrapper input::placeholder {
 /* Form Groups */
 .form-group {
     margin-bottom: 1.5rem;
+    position: relative;
 }
 
 .form-group label {
@@ -327,6 +386,16 @@ body.dark-theme .input-wrapper input::placeholder {
     position: relative;
 }
 
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    transition: var(--transition);
+    z-index: 2;
+}
+
 .input-wrapper input {
     width: 100%;
     padding: 0.875rem 1rem 0.875rem 2.5rem;
@@ -335,6 +404,7 @@ body.dark-theme .input-wrapper input::placeholder {
     font-size: 1rem;
     transition: var(--transition);
     background: white;
+    color: var(--text-primary);
 }
 
 .input-wrapper input:hover {
@@ -348,17 +418,61 @@ body.dark-theme .input-wrapper input::placeholder {
     transform: scale(1.02);
 }
 
-.input-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-light);
-    transition: var(--transition);
-}
-
 .input-wrapper input:focus + .input-icon {
     color: var(--primary-color);
+}
+
+/* Password Toggle */
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: var(--text-light);
+    transition: var(--transition);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: var(--primary-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.password-toggle:focus {
+    outline: none;
+    color: var(--primary-color);
+}
+
+/* Floating label effect (optional) */
+.input-wrapper.focused .input-icon {
+    color: var(--primary-color);
+}
+
+/* Error states */
+.input-wrapper.error input {
+    border-color: var(--danger-color) !important;
+    animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+    animation: fadeIn 0.3s ease;
 }
 
 /* Form Options */
@@ -466,7 +580,7 @@ body.dark-theme .input-wrapper input::placeholder {
 }
 
 /* Buttons */
-.login-btn {
+.login-btn, .btn-primary {
     width: 100%;
     padding: 1rem;
     background: linear-gradient(135deg, var(--primary-color) 0%, #7c3aed 100%);
@@ -486,7 +600,7 @@ body.dark-theme .input-wrapper input::placeholder {
     gap: 8px;
 }
 
-.login-btn::before {
+.login-btn::before, .btn-primary::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -499,34 +613,38 @@ body.dark-theme .input-wrapper input::placeholder {
     transition: width 0.6s, height 0.6s;
 }
 
-.login-btn:hover {
+.login-btn:hover, .btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
 
-.login-btn:hover::before {
+.login-btn:hover::before, .btn-primary:hover::before {
     width: 300px;
     height: 300px;
 }
 
-.login-btn:hover i {
+.login-btn:hover i, .btn-primary:hover i {
     transform: translateX(5px);
 }
 
-.login-btn i {
+.login-btn i, .btn-primary i {
     transition: transform 0.3s ease;
 }
 
-.login-btn.loading {
+/* Loading state */
+.login-btn.loading, .btn-primary.loading {
     opacity: 0.7;
     cursor: not-allowed;
+    position: relative;
+    color: transparent;
+    pointer-events: none;
 }
 
-.login-btn.loading span {
+.login-btn.loading span, .btn-primary.loading span {
     opacity: 0;
 }
 
-.login-btn.loading::after {
+.login-btn.loading::after, .btn-primary.loading::after {
     content: '';
     position: absolute;
     width: 20px;
@@ -552,12 +670,25 @@ body.dark-theme .input-wrapper input::placeholder {
     border-radius: 0.75rem;
     text-align: center;
     border: 1px solid #bae6fd;
-    animation: pulse 3s infinite;
+    animation: softPulse 3s ease-in-out infinite;
+}
+
+@keyframes softPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
 }
 
 .demo-note p {
     color: var(--text-secondary);
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.demo-note i {
+    color: var(--primary-color);
 }
 
 /* Register prompt */
@@ -599,6 +730,289 @@ body.dark-theme .input-wrapper input::placeholder {
     transform: scaleX(1);
 }
 
+/* Terms */
+.terms {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+.terms a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.terms a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* ===== MODAL STYLES ===== */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-xl);
+    z-index: 1000;
+    max-width: 500px;
+    width: 90%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.small-modal {
+    max-width: 400px;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Dark theme modal */
+body.dark-theme .modal {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h3 {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+body.dark-theme .modal-header h3 {
+    color: #f1f5f9;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.close-btn:hover {
+    background: #f1f5f9;
+    color: var(--danger-color);
+    transform: rotate(90deg);
+}
+
+body.dark-theme .close-btn:hover {
+    background: #334155;
+    color: #f87171;
+}
+
+/* Modal Body */
+.modal-body {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: var(--success-color);
+    margin-bottom: 1rem;
+    animation: successPop 0.5s ease;
+}
+
+@keyframes successPop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.modal-body p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+body.dark-theme .modal-body p {
+    color: #cbd5e1;
+}
+
+/* Modal Actions */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 1.5rem;
+}
+
+/* Modal Footer */
+.modal-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+body.dark-theme .modal-footer {
+    border-top-color: #334155;
+}
+
+.modal-footer p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+body.dark-theme .modal-footer p {
+    color: #94a3b8;
+}
+
+.modal-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.modal-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Hint text */
+.hint {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--text-light);
+    font-size: 0.8rem;
+}
+
+body.dark-theme .hint {
+    color: #64748b;
+}
+
+/* Register button */
+.register-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.register-btn:hover i {
+    transform: translateX(5px);
+}
+
+.register-btn i {
+    transition: transform 0.3s ease;
+}
+
+.register-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+.register-btn.loading span {
+    opacity: 0;
+}
+
+.register-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid white;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+/* Terms checkbox in modal */
+.terms-checkbox {
+    margin: 1.5rem 0;
+}
+
+.terms-checkbox .checkbox-container {
+    padding-left: 30px;
+}
+
+.terms-checkbox .checkbox-container a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.terms-checkbox .checkbox-container a:hover {
+    text-decoration: underline;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Forgot password modal specific */
+#forgotModal .modal-content {
+    text-align: center;
+}
+
+#forgotModal .hint {
+    color: var(--text-light);
+    margin: 1rem 0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .container {
@@ -624,6 +1038,31 @@ body.dark-theme .input-wrapper input::placeholder {
     .form-section {
         padding: 2rem;
     }
+    
+    .modal {
+        padding: 1.5rem;
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-options {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-actions button {
+        width: 100%;
+    }
 }
 
 /* Reduced motion preferences */
@@ -635,4 +1074,34 @@ body.dark-theme .input-wrapper input::placeholder {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+body.dark-theme ::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+body.dark-theme ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
 }
