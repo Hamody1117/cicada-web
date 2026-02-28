@@ -32,7 +32,7 @@
 
             <nav class="sidebar-nav">
                 <ul>
-                    <li class="nav-item active" data-section="dashboard">
+                    <li class="nav-item" data-section="dashboard">
                         <a href="#dashboard">
                             <i class="fas fa-th-large"></i>
                             <span class="nav-text">Dashboard</span>
@@ -264,7 +264,7 @@
                     
                     <div class="kanban-board" id="kanban-board">
                         <!-- To Do Column -->
-                        <div class="board-column" data-status="todo">
+                        <div class="board-column" data-status="todo" id="todo-column-container">
                             <div class="column-header">
                                 <h4><span class="dot todo"></span> To Do <span class="task-count" id="todo-count">0</span></h4>
                             </div>
@@ -272,7 +272,7 @@
                         </div>
                         
                         <!-- In Progress Column -->
-                        <div class="board-column" data-status="progress">
+                        <div class="board-column" data-status="progress" id="progress-column-container">
                             <div class="column-header">
                                 <h4><span class="dot progress"></span> In Progress <span class="task-count" id="progress-count">0</span></h4>
                             </div>
@@ -280,7 +280,7 @@
                         </div>
                         
                         <!-- Review Column -->
-                        <div class="board-column" data-status="review">
+                        <div class="board-column" data-status="review" id="review-column-container">
                             <div class="column-header">
                                 <h4><span class="dot review"></span> Review <span class="task-count" id="review-count">0</span></h4>
                             </div>
@@ -288,7 +288,7 @@
                         </div>
                         
                         <!-- Done Column -->
-                        <div class="board-column" data-status="done">
+                        <div class="board-column" data-status="done" id="done-column-container">
                             <div class="column-header">
                                 <h4><span class="dot done"></span> Done <span class="task-count" id="done-count">0</span></h4>
                             </div>
@@ -313,7 +313,7 @@
                 <section id="sprints-section" class="page-section">
                     <div class="section-header">
                         <h2>Sprints</h2>
-                        <button class="btn-primary"><i class="fas fa-plus"></i> New Sprint</button>
+                        <button class="btn-primary" id="newSprintBtn"><i class="fas fa-plus"></i> New Sprint</button>
                     </div>
 
                     <div class="sprints-container">
@@ -327,7 +327,9 @@
                                     <span>Progress</span>
                                     <span id="sprint-progress">0%</span>
                                 </div>
-                                <div class="progress-bar"><div class="progress-fill" id="sprint-progress-bar" style="width:0%"></div></div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="sprint-progress-bar" style="width:0%"></div>
+                                </div>
                             </div>
                             <div class="sprint-stats">
                                 <div><span>Completed:</span> <span id="sprint-completed">0</span>/<span id="sprint-total">0</span></div>
@@ -449,10 +451,11 @@
                         <div class="profile-tabs">
                             <button class="profile-tab active" data-profile-tab="about">About</button>
                             <button class="profile-tab" data-profile-tab="activity">Activity</button>
-                            <button class="profile-tab" data-profile-tab="settings">Account Settings</button>
+                            <button class="profile-tab" data-profile-tab="account">Account Settings</button>
                         </div>
 
                         <div class="profile-tab-content">
+                            <!-- About Tab -->
                             <div class="profile-tab-pane active" id="about-tab">
                                 <div class="profile-field-group">
                                     <div class="profile-field">
@@ -479,6 +482,7 @@
                                 </div>
                             </div>
 
+                            <!-- Activity Tab -->
                             <div class="profile-tab-pane" id="activity-tab">
                                 <h4>Recent Activity</h4>
                                 <div class="activity-list" id="activityList">
@@ -486,6 +490,7 @@
                                 </div>
                             </div>
 
+                            <!-- Account Settings Tab -->
                             <div class="profile-tab-pane" id="account-tab">
                                 <h4>Account Settings</h4>
                                 <div class="profile-field">
@@ -494,13 +499,13 @@
                                 </div>
                                 <div class="profile-field">
                                     <label>Change Password</label>
-                                    <input type="password" placeholder="New password">
+                                    <input type="password" id="newPassword" placeholder="New password">
                                 </div>
                                 <div class="profile-field">
                                     <label>Confirm Password</label>
-                                    <input type="password" placeholder="Confirm new password">
+                                    <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
                                 </div>
-                                <button class="btn-primary">Update Password</button>
+                                <button class="btn-primary" id="updatePasswordBtn">Update Password</button>
                             </div>
                         </div>
                     </div>
@@ -599,6 +604,7 @@
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
 
+    <!-- JavaScript -->
     <script src="web.js"></script>
 </body>
 </html>
